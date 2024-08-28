@@ -1,95 +1,79 @@
 #!/usr/bin/env python3
-"""0. Regex-ing
-   1. Log formatter
-   2. Create logger
-   3. Connect to secure database
-   4. Read and filter data
-"""
-import os
+""" doc doc doc """
 import re
-import mysql.connector
 from typing import List
 import logging
+import os
+import mysql.connector
 
 
 def filter_datum(
-        fields: List[str],
-        redaction: str,
-        message: str,
-        separator: str) -> str:
-    """Obfuscates specified fields in a log message."""
+    fields: List[str], redaction: str, message: str, separator: str
+) -> str:
+    """doc doc doc"""
     for field in fields:
-        message = re.sub(f'{field}=.*?{separator}',
-                         f'{field}={redaction}{separator}', message)
+        regex = f"{field}=[^{separator}]*"
+        message = re.sub(regex, f"{field}={redaction}", message)
     return message
 
 
 class RedactingFormatter(logging.Formatter):
-    """Custom logging formatter that redacts sensitive information."""
+    """doc doc doc"""
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
     def __init__(self, fields: List[str]):
-        """Initializes the RedactingFormatter."""
+        """doc doc doc"""
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        """Formats the log record, redacting sensitive fields."""
-        return filter_datum(self.fields, self.REDACTION,
-                            super().format(record), self.SEPARATOR)
+        """doc doc doc"""
+        org = super().format(record)
+        return filter_datum(self.fields, self.REDACTION, org, self.SEPARATOR)
 
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
 def get_logger() -> logging.Logger:
-    """Creates and configures a logger for user data."""
-    logger = logging.getLogger("user_data")
-    logger.setLevel(logging.INFO)
-    logger.propagate = False
-
-    stream_handler = logging.StreamHandler()
-    stream_handler.setFormatter(RedactingFormatter(PII_FIELDS))
-
-    logger.addHandler(stream_handler)
-
-    return logger
+    """doc doc doc"""
+    log = logging.getLogger("user_data")
+    log.setLevel(logging.INFO)
+    log.propagate = False
+    sh = logging.StreamHandler()
+    sh.setFormatter(RedactingFormatter(PII_FIELDS))
+    log.addHandler(sh)
+    return log
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
-    """Establishes and returns a database connection."""
-    db_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
-    db_name = os.getenv("PERSONAL_DATA_DB_NAME", "")
-    db_user = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
-    db_pwd = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
-    connection = mysql.connector.connect(
-        host=db_host,
-        port=3306,
-        user=db_user,
-        password=db_pwd,
-        database=db_name,
+    """doc doc doc"""
+    username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
+    password = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
+    host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = os.getenv("PERSONAL_DATA_DB_NAME")
+
+    return mysql.connector.connect(
+        user=username, password=password, host=host, database=db_name
     )
-    return connection
 
 
 def main() -> None:
-    """Fetches data from the database and logs each row."""
+    """doc doc doc"""
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users;")
-    fields = [i[0] for i in cursor.description]
-
-    logger = get_logger()
-
+    log = get_logger()
     for row in cursor:
-        row_dict = dict(zip(fields, row))
-        log_record = "; ".join(
-            [f"{key}={value}" for key, value in row_dict.items()]) + ";"
-        logger.info(log_record)
-
+        data = []
+        for desc, value in zip(cursor.description, row):
+            pair = f"{desc[0]}={str(value)}"
+            data.append(pair)
+        row_str = "; ".join(data)
+        log.info(row_str)
     cursor.close()
     db.close()
 
