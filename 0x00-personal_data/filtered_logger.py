@@ -38,8 +38,8 @@ def get_logger() -> logging.Logger:
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
-    """Establishes a connection to the MySQL database using environment variables
-    """
+    """Establishes a connection to the MySQL database
+       using environment variables"""
     db_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
     db_name = os.getenv("PERSONAL_DATA_DB_NAME", "")
     db_user = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
@@ -55,8 +55,8 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 
 def main():
-    """Fetches user records from the database and logs the data while redacting sensitive fields
-    """
+    """Fetches user records from the database and
+       logs the data while redacting sensitive fields"""
     fields = "name,email,phone,ssn,password,ip,last_login,user_agent"
     columns = fields.split(',')
     query = "SELECT {} FROM users;".format(fields)
