@@ -7,7 +7,7 @@
 """
 import os
 import re
-import mysql.connector
+import mysql.connector # type: ignore
 from typing import List
 import logging
 
@@ -59,7 +59,7 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db() -> mysql.connector.connection.MySQLConnection:
+def get_db() -> mysql.connector.connection:
     """Establishes and returns a database connection."""
     config = {
         "host": os.getenv("PERSONAL_DATA_DB_HOST", "localhost"),
