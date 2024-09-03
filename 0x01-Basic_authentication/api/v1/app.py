@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""
-Route module for the API
+"""1. Error handler: Unauthorized
 """
 from os import getenv
 from api.v1.views import app_views
