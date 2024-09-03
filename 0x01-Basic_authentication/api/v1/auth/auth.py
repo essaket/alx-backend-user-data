@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """3. Auth class
    4. Define which routes don't need authentication
+   5. Request validation!
 """
 import fnmatch
 from typing import List, TypeVar
