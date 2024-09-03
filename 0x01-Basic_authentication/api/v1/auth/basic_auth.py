@@ -2,6 +2,7 @@
 """6. Basic auth
    7. Basic - Base64 part
    8. Basic - Base64 decode
+   9. Basic - User credentials
 """
 from typing import Tuple, TypeVar
 from api.v1.auth.auth import Auth
