@@ -5,6 +5,7 @@
    9. Basic - User credentials
    10. Basic - User object
    11. Basic - Overload current_user - and BOOM!
+   12. Basic - Allow password with ":"
 """
 from typing import Tuple, TypeVar
 from api.v1.auth.auth import Auth
