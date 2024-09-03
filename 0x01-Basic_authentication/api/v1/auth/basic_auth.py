@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """6. Basic auth
+   7. Basic - Base64 part
 """
 from typing import Tuple, TypeVar
 from api.v1.auth.auth import Auth
