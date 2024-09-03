@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""Module to Manage the API Authentication
+"""3. Auth class
 """
-
 import fnmatch
 from typing import List, TypeVar
 
