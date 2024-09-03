@@ -2,6 +2,7 @@
 """1. Error handler: Unauthorized
    2. Error handler: Forbidden
    5. Request validation!
+   6. Basic auth
 """
 from os import getenv
 from api.v1.views import app_views
