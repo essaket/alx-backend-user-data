@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """1. Error handler: Unauthorized
+   2. Error handler: Forbidden
 """
 from flask import jsonify, abort
 from api.v1.views import app_views
