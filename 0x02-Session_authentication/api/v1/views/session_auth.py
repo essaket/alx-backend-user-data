@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """7. New view for Session Authentication
+   8. Logout
 """
 import os
 from typing import Tuple

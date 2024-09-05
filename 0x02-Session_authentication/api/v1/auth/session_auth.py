@@ -3,6 +3,7 @@
    2. Create a session
    3. User ID for Session ID
    6. Use Session ID for identifying a User
+   8. Logout
 """
 from uuid import uuid4
 from flask import request
