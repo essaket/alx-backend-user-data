@@ -3,6 +3,7 @@
    1. Empty session
    5. Before request
    9. Expiration?
+   10. Sessions in database
 """
 import os
 from os import getenv
