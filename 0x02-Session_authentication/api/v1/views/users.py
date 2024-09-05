@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Module of Users views
+"""0. Et moi et moi et moi!
 """
 from api.v1.views import app_views
 from flask import abort, jsonify, request
