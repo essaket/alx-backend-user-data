@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """0. Et moi et moi et moi!
+   1. Empty session
 """
 import os
 from os import getenv
