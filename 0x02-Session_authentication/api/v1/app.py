@@ -2,6 +2,7 @@
 """0. Et moi et moi et moi!
    1. Empty session
    5. Before request
+   9. Expiration?
 """
 import os
 from os import getenv
