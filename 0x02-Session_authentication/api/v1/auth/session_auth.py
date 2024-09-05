@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """1. Empty session
    2. Create a session
+   3. User ID for Session ID
 """
 from uuid import uuid4
 from flask import request
