@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""1. Empty session
+"""7. New view for Session Authentication
 """
 import os
 from typing import Tuple
