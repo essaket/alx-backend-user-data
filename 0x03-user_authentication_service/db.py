@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""1. create user"""
+"""1. create user
+   2. Find user
+"""
 from user import Base, User
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -33,3 +35,7 @@ class DB:
         self._session.add(new_user)
         self._session.commit()
         return new_user
+
+    def find_user_by(self, **kwargs) -> User:
+        """Find a user by a given attribute"""
+        return self._session.query(User).filter_by(**kwargs).one()
