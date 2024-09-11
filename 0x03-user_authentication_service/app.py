@@ -2,6 +2,7 @@
 """6. Basic Flask app
    7. Register user
    11. Log in
+   14. Log out
 """
 from flask import Flask, abort, jsonify, redirect, request, url_for
 from auth import Auth
