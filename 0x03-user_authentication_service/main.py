@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """20. End-to-end integration test"""
 import requests
