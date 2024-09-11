@@ -2,6 +2,8 @@
 """4. Hash password
    5. Register user
    8. Credentials validation
+   9. Generate UUIDs
+   10. Get session ID
 """
 from typing import Union
 import uuid
@@ -16,6 +18,11 @@ def _hash_password(password: str) -> str:
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode()
 
 
+def _generate_uuid() -> str:
+    """Generate a UUID"""
+    return str(uuid.uuid4())
+
+
 class Auth:
     """Auth class to interact with the authentication database"""
     def __init__(self):
@@ -28,7 +35,7 @@ class Auth:
             raise ValueError(f"User {email} already exists")
         except NoResultFound:
             return self._db.add_user(email, _hash_password(password))
-    
+
     def valid_login(self, email: str, password: str) -> bool:
         """Validate login"""
         try:
@@ -38,3 +45,13 @@ class Auth:
                 user.hashed_password.encode('utf-8'))
         except NoResultFound:
             return False
+
+    def create_session(self, email: str) -> str:
+        """Create a session"""
+        try:
+            user = self._db.find_user_by(email=email)
+            session_id = _generate_uuid()
+            self._db.update_user(user.id, session_id=session_id)
+            return session_id
+        except NoResultFound:
+            return None
