@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """1. create user
    2. Find user
+   3. update user
 """
 from user import Base, User
 from sqlalchemy import create_engine
@@ -39,3 +40,12 @@ class DB:
     def find_user_by(self, **kwargs) -> User:
         """Find a user by a given attribute"""
         return self._session.query(User).filter_by(**kwargs).one()
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Update a user"""
+        user = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            if not hasattr(user, key):
+                raise ValueError
+            setattr(user, key, value)
+        self._session.commit()
