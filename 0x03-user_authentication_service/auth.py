@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """4. Hash password
+   5. Register user
 """
 from typing import Union
 import uuid
