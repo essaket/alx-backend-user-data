@@ -4,6 +4,7 @@
    11. Log in
    14. Log out
    15. User profile
+   17. Get reset password token
 """
 from flask import Flask, abort, jsonify, redirect, request, url_for
 from auth import Auth
