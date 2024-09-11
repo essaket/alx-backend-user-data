@@ -3,6 +3,7 @@
    7. Register user
    11. Log in
    14. Log out
+   15. User profile
 """
 from flask import Flask, abort, jsonify, redirect, request, url_for
 from auth import Auth
