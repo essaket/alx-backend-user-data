@@ -2,6 +2,7 @@
 """4. Hash password
    5. Register user
    8. Credentials validation
+   9. Generate UUIDs
 """
 from typing import Union
 import uuid
@@ -14,6 +15,10 @@ from sqlalchemy.orm.exc import NoResultFound
 def _hash_password(password: str) -> str:
     """Hash a password"""
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode()
+
+def _generate_uuid() -> str:
+    """Generate a UUID"""
+    return str(uuid.uuid4())
 
 
 class Auth:
