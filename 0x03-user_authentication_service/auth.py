@@ -6,6 +6,7 @@
    10. Get session ID
    12. Find user by session ID
    13. Destroy session
+   16. Generate reset password token
 """
 from typing import Union
 import uuid
@@ -70,3 +71,13 @@ class Auth:
     def destroy_session(self, user_id: int) -> None:
         """Destroy a session"""
         self._db.update_user(user_id, session_id=None)
+
+    def get_reset_password_token(self, email: str) -> str:
+        """Reset password token"""
+        try:
+            user = self._db.find_user_by(email=email)
+            token = _generate_uuid()
+            self._db.update_user(user.id, reset_token=token)
+            return token
+        except NoResultFound:
+            raise ValueError
