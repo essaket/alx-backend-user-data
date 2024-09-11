@@ -5,6 +5,7 @@
    14. Log out
    15. User profile
    17. Get reset password token
+   19. Update password end-point
 """
 from flask import Flask, abort, jsonify, redirect, request, url_for
 from auth import Auth
